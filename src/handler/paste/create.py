@@ -29,7 +29,7 @@ class CreatePasteRequestHandler(RequestHandler):
                 request.metadata.password_protected,
                 request.metadata.ttl if request.metadata.ttl else self.defaults['ttl'],
                 request.metadata.opens_count,
-                request.syntax,
+                request.metadata.syntax,
             )
         except binascii.Error:
             raise RequestHandlingError()

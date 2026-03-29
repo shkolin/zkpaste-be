@@ -10,6 +10,7 @@ class CreatePasteRequestMetadata(BaseModel):
     password_protected: bool = False
     opens_count: Optional[int] = None
     ttl: Optional[int] = None
+    syntax: SyntaxType | None = None
 
 
 class CreatePasteRequest(BaseModel):
@@ -17,7 +18,6 @@ class CreatePasteRequest(BaseModel):
     iv: str
     signature: str
     metadata: CreatePasteRequestMetadata
-    syntax: SyntaxType | None = None
 
 
 class SignedRequest(BaseModel):

@@ -74,7 +74,7 @@ def update_paste_views(
 @router.post('/paste/{paste_id}/delete', response_model=OKResponse)
 @inject
 def delete_paste(
-    paste_id: UUID, 
+    paste_id: UUID,
     request: SignedRequest,
     get_paste_handler: RequestHandler[UUID, Paste] = Depends(
         Provide[Container.handlers.paste_get]
