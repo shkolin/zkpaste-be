@@ -2,6 +2,6 @@ from enum import StrEnum
 from enum import auto
 
 
-class Language(StrEnum):
+class SyntaxType(StrEnum):
     PLAINTEXT = auto()
     PYTHON = auto()

@@ -15,7 +15,7 @@ class GetPasteResponse(BaseModel):
     paste: str
     iv: str
     password_protected: bool
-    language: str
+    syntax: str
 
     @classmethod
     def from_paste(cls, paste: Paste) -> Self:
@@ -24,7 +24,7 @@ class GetPasteResponse(BaseModel):
             paste=base64.b64encode(paste.paste).decode(),
             iv=base64.b64encode(paste.iv).decode(),
             password_protected=paste.password_protected,
-            language=paste.language,
+            syntax=paste.syntax,
         )
 
 

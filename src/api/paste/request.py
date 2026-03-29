@@ -2,6 +2,7 @@ from pydantic import BaseModel
 from pydantic import ConfigDict
 from typing import Optional
 
+from src.domain.enum import SyntaxType
 from src.domain.paste import Paste
 
 
@@ -16,6 +17,7 @@ class CreatePasteRequest(BaseModel):
     iv: str
     signature: str
     metadata: CreatePasteRequestMetadata
+    syntax: SyntaxType | None = None
 
 
 class SignedRequest(BaseModel):
@@ -27,6 +29,7 @@ class UpdatePasteViewsRequest(BaseModel):
 
     paste: Paste
     signature: str
+
 
 class DeletePasteRequest(BaseModel):
     model_config = ConfigDict(arbitrary_types_allowed=True)
