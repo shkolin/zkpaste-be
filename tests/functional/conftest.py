@@ -43,6 +43,7 @@ def persisted_paste_factory(
                 False,
                 ttl,
                 opens_limit,
+                None
             )
             if date_created:
                 paste.date_created = date_created

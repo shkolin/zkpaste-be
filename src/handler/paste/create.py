@@ -12,8 +12,13 @@ from ..abstract import RequestHandler
 class CreatePasteRequestHandler(RequestHandler):
     def __init__(self, session: Session) -> None:
         self.session = session
-        self.limits = {"iv": 12, "signature": 32, "paste": 128 * 1024, "ttl": {600, 1800, 3600, 86400, 432000, 604800}}
-        self.defaults = {"ttl": 86400}
+        self.limits = {
+            'iv': 12,
+            'signature': 32,
+            'paste': 128 * 1024,
+            'ttl': {600, 1800, 3600, 86400, 432000, 604800},
+        }
+        self.defaults = {'ttl': 86400}
 
     def handle(self, request: CreatePasteRequest) -> UUID:
         try:
@@ -22,19 +27,20 @@ class CreatePasteRequestHandler(RequestHandler):
                 binascii.a2b_base64(request.iv, strict_mode=True),
                 binascii.a2b_base64(request.signature, strict_mode=True),
                 request.metadata.password_protected,
-                request.metadata.ttl if request.metadata.ttl else self.defaults["ttl"],
-                request.metadata.opens_count
+                request.metadata.ttl if request.metadata.ttl else self.defaults['ttl'],
+                request.metadata.opens_count,
+                request.metadata.syntax,
             )
         except binascii.Error:
             raise RequestHandlingError()
 
-        if len(paste.iv) != self.limits["iv"]:
+        if len(paste.iv) != self.limits['iv']:
             raise RequestHandlingError()
 
-        if len(paste.signature) != self.limits["signature"]:
+        if len(paste.signature) != self.limits['signature']:
             raise RequestHandlingError()
 
-        if (paste.ttl and paste.ttl not in self.limits["ttl"]):
+        if paste.ttl and paste.ttl not in self.limits['ttl']:
             raise RequestHandlingError()
 
         with self.session as s:

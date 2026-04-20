@@ -5,6 +5,8 @@ from typing import Self
 from uuid import UUID
 from uuid import uuid4
 
+from src.domain.enum import SyntaxType
+
 from .base import Base
 
 
@@ -20,6 +22,9 @@ class Paste(Base):
     opens_limit: Mapped[int | None]
     current_opens: Mapped[int]
     date_created: Mapped[datetime]
+    syntax: Mapped[str] = mapped_column(
+        server_default=SyntaxType.PLAINTEXT.value,
+    )
 
     @classmethod
     def init(
@@ -30,6 +35,7 @@ class Paste(Base):
         password_protected: bool,
         ttl: int | None,
         opens_limit: int | None,
+        syntax: SyntaxType | None,
     ) -> Self:
         instance = cls()
 
@@ -42,5 +48,6 @@ class Paste(Base):
         instance.opens_limit = opens_limit
         instance.current_opens = 0
         instance.date_created = datetime.now()
+        instance.syntax = syntax.value if syntax else SyntaxType.PLAINTEXT.value
 
         return instance

@@ -36,6 +36,7 @@ def test_create_paste(
         assert paste.opens_limit is None
         assert paste.current_opens == 0
         assert paste.date_created is not None
+        assert paste.syntax == 'plaintext'
 
         s.delete(paste)
         s.commit()

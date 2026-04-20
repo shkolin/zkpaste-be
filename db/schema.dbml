@@ -8,4 +8,5 @@ Table paste {
   opens_limit int [note: null for unlimited]
   current_opens int [not null, default: 0]
   date_created datetime not null
+  syntax varchar [not null, default: "plaintext"]
 }

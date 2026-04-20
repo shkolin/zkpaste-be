@@ -20,6 +20,7 @@ def test_get_paste(
     assert json['paste_id'] == str(paste.id)
     assert json['paste'] == base64.b64encode(paste.paste).decode()
     assert json['iv'] == base64.b64encode(paste.iv).decode()
+    assert json['syntax'] == 'plaintext'
 
 
 def test_expired_paste(
